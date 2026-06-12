@@ -121,11 +121,15 @@ After **any** change to `src/db/schema.ts`, run `db:generate` then `db:migrate`.
 
 ### Indexing note
 
-`user_progress` has both a unique constraint **and** an explicit index on
-`(user_id, task_id)`. Postgres already creates a btree for the unique constraint, so
-the extra index is technically redundant. It's there by request for the "next unlocked
-task" read path; drop it (or swap it for a `status`-based index) if you'd rather not
-carry the extra write cost.
+`user_progress` has a unique constraint on `(user_id, task_id)` (which also indexes
+lookups by that pair) plus an explicit index on `(user_id, status)` for the
+"find this user's incomplete tasks" hot path.
+
+## Deployment
+
+See [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md). Note: Vercel serverless must use the
+Supabase **Transaction pooler (port 6543)** for `DATABASE_URL`, not the session pooler
+used locally.
 
 ## Seeded accounts
 

@@ -1,65 +1,57 @@
-import Image from "next/image";
+import Link from "next/link";
+import { GraduationCap, BookOpen, Sparkles } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
 
-export default function Home() {
+/**
+ * Landing page (public). Short warm pitch + Sign In. No public sign-up — new
+ * students join with an invite code. Fuller landing polish can come later.
+ */
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="flex min-h-dvh flex-col">
+      <header className="mx-auto flex w-full max-w-5xl items-center justify-between px-5 py-5">
+        <div className="flex items-center gap-2.5">
+          <span className="flex size-9 items-center justify-center rounded-[var(--radius-button)] bg-primary text-primary-foreground shadow-soft-sm">
+            <GraduationCap className="size-5" />
+          </span>
+          <span className="text-lg font-extrabold tracking-tight">
+            English Platform
+          </span>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+        <Link href="/login" className={buttonVariants({ size: "sm" })}>
+          Sign in
+        </Link>
+      </header>
+
+      <section className="mx-auto flex w-full max-w-2xl flex-1 flex-col items-center justify-center gap-6 px-5 py-16 text-center">
+        <span className="inline-flex items-center gap-2 rounded-full bg-accent px-3 py-1 text-sm font-semibold text-accent-foreground">
+          <Sparkles className="size-4" />
+          Practice that actually sticks
+        </span>
+        <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
+          Build your English, one unit at a time.
+        </h1>
+        <p className="max-w-prose text-lg text-muted-foreground">
+          Vocabulary and reading practice made for you — clear steps, instant
+          feedback, and steady progress you can see.
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <Link href="/login" className={buttonVariants({ size: "lg" })}>
+            <BookOpen />
+            Sign in to start
+          </Link>
+          <Link
+            href="/redeem"
+            className={buttonVariants({ variant: "outline", size: "lg" })}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            I have an invite code
+          </Link>
         </div>
-      </main>
-    </div>
+      </section>
+
+      <footer className="mx-auto w-full max-w-5xl px-5 py-6 text-center text-sm text-muted-foreground">
+        New students join with an invite code from their teacher.
+      </footer>
+    </main>
   );
 }

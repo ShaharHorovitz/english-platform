@@ -114,27 +114,42 @@ const TASK_TYPES: { type: TaskTypeKey; title: string }[] = [
 
 // --- auth user helper -------------------------------------------------------
 
-async function ensureUser(email: string, fullName: string) {
-  // createUser fails if the email already exists; fall back to a lookup.
+async function ensureUser(
+  email: string,
+  fullName: string,
+  role: "student" | "teacher",
+) {
+  // Role lives in app_metadata so the proxy can gate /admin without a DB call.
   const created = await admin.auth.admin.createUser({
     email,
     password: SEED_PASSWORD,
     email_confirm: true,
     user_metadata: { full_name: fullName },
+    app_metadata: { role },
   });
   if (created.data.user) return created.data.user.id;
 
-  // Already exists — find them by paging the user list.
+  // Already exists — find them by paging, then backfill metadata.
+  let id: string | undefined;
   let page = 1;
   for (;;) {
     const { data, error } = await admin.auth.admin.listUsers({ page, perPage: 200 });
     if (error) throw error;
     const found = data.users.find((u) => u.email === email);
-    if (found) return found.id;
+    if (found) {
+      id = found.id;
+      break;
+    }
     if (data.users.length < 200) break;
     page += 1;
   }
-  throw new Error(`Could not create or find auth user: ${email}`);
+  if (!id) throw new Error(`Could not create or find auth user: ${email}`);
+
+  await admin.auth.admin.updateUserById(id, {
+    app_metadata: { role },
+    user_metadata: { full_name: fullName },
+  });
+  return id;
 }
 
 // --- main -------------------------------------------------------------------
@@ -195,9 +210,17 @@ async function seed() {
   console.log("👤 Seeding accounts...");
   const fifthGrade = gradeRows.find((g) => g.displayOrder === 1)!;
 
-  const teacherId = await ensureUser(TEACHER_EMAIL!, "Teacher");
-  const student1Id = await ensureUser("student1@example.com", "Test Student One");
-  const student2Id = await ensureUser("student2@example.com", "Test Student Two");
+  const teacherId = await ensureUser(TEACHER_EMAIL!, "Teacher", "teacher");
+  const student1Id = await ensureUser(
+    "student1@example.com",
+    "Test Student One",
+    "student",
+  );
+  const student2Id = await ensureUser(
+    "student2@example.com",
+    "Test Student Two",
+    "student",
+  );
 
   await db
     .insert(profiles)

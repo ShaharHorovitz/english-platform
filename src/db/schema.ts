@@ -144,13 +144,10 @@ export const userProgress = pgTable(
   },
   (t) => [
     // One progress row per student per task; the app upserts on this pair.
+    // This unique constraint also serves lookups keyed on (user_id, task_id).
     unique("user_progress_user_task_unique").on(t.userId, t.taskId),
-    // Explicit btree on (user_id, task_id) for the "next unlocked task" read
-    // path, per request. NOTE: the unique constraint above already creates a
-    // btree on these exact columns, so this index is technically redundant and
-    // only adds write overhead. See the README "Indexing note" — happy to drop
-    // it, or swap for an index that actually helps (e.g. on status).
-    index("user_progress_user_task_idx").on(t.userId, t.taskId),
+    // Hot path: "find this user's incomplete tasks" filters by user_id + status.
+    index("user_progress_user_status_idx").on(t.userId, t.status),
   ],
 );
 

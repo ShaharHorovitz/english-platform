@@ -8,6 +8,13 @@
       "when": 1781255565183,
       "tag": "0000_classy_stark_industries",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1781261330965,
+      "tag": "0001_swap_user_progress_index",
+      "breakpoints": true
     }
   ]
 }
