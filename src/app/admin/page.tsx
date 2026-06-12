@@ -1,45 +1,44 @@
 import Link from "next/link";
-import { ShieldCheck } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { requireTeacher } from "@/lib/auth";
-import { signOutAction } from "@/lib/actions";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { AppShell } from "@/components/layout/app-shell";
 import { Card } from "@/components/ui/card";
+import { buttonVariants } from "@/components/ui/button";
 
 /**
- * Placeholder admin — teacher-only. `requireTeacher` is defense-in-depth behind
- * the proxy role gate. The real admin (CRUD, JSON editor, invite codes,
- * progress) is built in Phase 5.
+ * Admin shell — teacher-only (`requireTeacher` is defense-in-depth behind the
+ * proxy role gate). The real management tools land in Phase 5.
  */
 export default async function AdminPage() {
-  const { user } = await requireTeacher();
+  const { user, profile } = await requireTeacher();
 
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-2xl flex-col justify-center gap-6 px-5 py-12">
-      <div className="flex items-center gap-2">
-        <span className="flex size-9 items-center justify-center rounded-[var(--radius-button)] bg-primary text-primary-foreground">
-          <ShieldCheck className="size-5" />
-        </span>
-        <h1 className="text-3xl font-extrabold tracking-tight">Admin</h1>
-      </div>
+    <AppShell user={{ fullName: profile.fullName, email: user.email ?? "" }}>
+      <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-1">
+          <h1 className="text-3xl font-extrabold tracking-tight">Admin</h1>
+          <p className="text-sm text-muted-foreground">
+            Manage grades, units, tasks, and invite codes.
+          </p>
+        </div>
 
-      <Card className="p-6">
-        <p className="text-sm text-muted-foreground">
-          Teacher area — signed in as{" "}
-          <span className="font-semibold text-foreground">{user.email}</span>.
-          The management tools arrive in Phase 5.
-        </p>
-      </Card>
+        <Card className="p-6">
+          <p className="text-sm text-muted-foreground">
+            The management tools (CRUD, JSON content editor, invite codes,
+            per-student progress) arrive in Phase 5.
+          </p>
+        </Card>
 
-      <div className="flex flex-wrap items-center gap-3">
-        <Link href="/dashboard" className={buttonVariants({ variant: "outline" })}>
-          Back to dashboard
-        </Link>
-        <form action={signOutAction}>
-          <Button variant="ghost" type="submit">
-            Sign out
-          </Button>
-        </form>
+        <div>
+          <Link
+            href="/dashboard"
+            className={buttonVariants({ variant: "outline" })}
+          >
+            <ArrowLeft />
+            Back to dashboard
+          </Link>
+        </div>
       </div>
-    </main>
+    </AppShell>
   );
 }

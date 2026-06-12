@@ -146,3 +146,22 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Overlay menu / sheet motion (used by dropdown-menu + sheet). */
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.97);
+  }
+}
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+}
+
