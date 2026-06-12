@@ -4,14 +4,26 @@ import { ArrowLeft } from "lucide-react";
 import { requireUser, getProfile } from "@/lib/auth";
 import { getTaskWithUnit, getGradeProgression } from "@/lib/queries";
 import { taskTypeMeta } from "@/lib/task-type";
+import {
+  parseTaskContent,
+  type VocabStudyContent,
+  type VocabPracticeContent,
+  type ReadingContent,
+  type InContextContent,
+} from "@/lib/content-schemas";
 import { AppShell } from "@/components/layout/app-shell";
 import { Card } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
+import { VocabStudy } from "@/components/tasks/vocab-study";
+import { VocabPractice } from "@/components/tasks/vocab-practice";
+import { Reading } from "@/components/tasks/reading";
+import { InContext } from "@/components/tasks/in-context";
+import { cn } from "@/lib/utils";
 
 /**
- * Task page — Phase 3 stub. Auth + grade + unlock gated (a student can't open a
- * locked task by URL). Phase 4 replaces the placeholder card with the real
- * task UI for each type, reading from tasks.content.
+ * Task page — dispatches to the right interactive UI by task.type, reading the
+ * validated `content` JSONB. Auth + grade + unlock gated; a completed task can
+ * be redone. (Single route by design — the task id already implies its type.)
  */
 export default async function TaskPage({
   params,
@@ -37,34 +49,89 @@ export default async function TaskPage({
 
   const meta = taskTypeMeta[task.type];
   const Icon = meta.icon;
+  const unitHref = `/units/${unit.id}`;
+  const alreadyCompleted = node.state === "completed";
+  const shellUser = {
+    fullName: profile?.fullName ?? "Student",
+    email: user.email ?? "",
+  };
+
+  // Validate content against the type's schema. Cast per branch is sound because
+  // parseTaskContent used the schema for exactly this task.type.
+  let parsed:
+    | VocabStudyContent
+    | VocabPracticeContent
+    | ReadingContent
+    | InContextContent
+    | null = null;
+  try {
+    parsed = parseTaskContent(task.type, task.content);
+  } catch {
+    parsed = null;
+  }
 
   return (
-    <AppShell
-      user={{ fullName: profile?.fullName ?? "Student", email: user.email ?? "" }}
-    >
-      <div className="mx-auto flex max-w-2xl flex-col gap-6">
-        <Link
-          href={`/units/${unit.id}`}
-          className={buttonVariants({ variant: "ghost", size: "sm" })}
-        >
-          <ArrowLeft />
-          Back to {unit.title}
-        </Link>
-
-        <Card className="flex flex-col items-center gap-4 p-10 text-center">
-          <span className="flex size-14 items-center justify-center rounded-[var(--radius-card)] bg-accent text-accent-foreground">
-            <Icon className="size-7" />
-          </span>
-          <div>
-            <h1 className="text-2xl font-extrabold tracking-tight">
-              {meta.label}
-            </h1>
-            <p className="mx-auto mt-2 max-w-sm text-muted-foreground text-pretty">
-              This task type is built in Phase 4 — progression, locking, and
-              navigation already work around it.
-            </p>
+    <AppShell user={shellUser}>
+      <div className="mx-auto flex w-full max-w-4xl flex-col gap-6">
+        <div className="flex flex-col gap-3">
+          <Link
+            href={unitHref}
+            className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "self-start")}
+          >
+            <ArrowLeft />
+            Back to {unit.title}
+          </Link>
+          <div className="flex items-center gap-3">
+            <span className="flex size-11 items-center justify-center rounded-[var(--radius-button)] bg-accent text-accent-foreground">
+              <Icon className="size-5" />
+            </span>
+            <div>
+              <h1 className="text-2xl font-extrabold tracking-tight">
+                {meta.label}
+              </h1>
+              {alreadyCompleted ? (
+                <p className="text-sm font-medium text-success">
+                  Completed{node.score != null ? ` · ${node.score}%` : ""} — you
+                  can redo it.
+                </p>
+              ) : null}
+            </div>
           </div>
-        </Card>
+        </div>
+
+        {!parsed ? (
+          <Card className="p-6 text-sm text-muted-foreground">
+            This task&rsquo;s content isn&rsquo;t set up correctly yet.
+          </Card>
+        ) : task.type === "vocab_study" ? (
+          <VocabStudy
+            taskId={id}
+            content={parsed as VocabStudyContent}
+            unitHref={unitHref}
+            alreadyCompleted={alreadyCompleted}
+          />
+        ) : task.type === "vocab_practice" ? (
+          <VocabPractice
+            taskId={id}
+            content={parsed as VocabPracticeContent}
+            unitHref={unitHref}
+            alreadyCompleted={alreadyCompleted}
+          />
+        ) : task.type === "reading" ? (
+          <Reading
+            taskId={id}
+            content={parsed as ReadingContent}
+            unitHref={unitHref}
+            alreadyCompleted={alreadyCompleted}
+          />
+        ) : (
+          <InContext
+            taskId={id}
+            content={parsed as InContextContent}
+            unitHref={unitHref}
+            alreadyCompleted={alreadyCompleted}
+          />
+        )}
       </div>
     </AppShell>
   );
