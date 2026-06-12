@@ -123,7 +123,16 @@
    Base
 --------------------------------------------------------------------------- */
 body {
-  background: var(--background);
+  /* Subtle teal glow from the top — on-brand visual interest so empty areas
+     never read as flat. Uses the primary token, so it flips with light/dark. */
+  background-color: var(--background);
+  background-image: radial-gradient(
+    72rem 48rem at 50% -16%,
+    color-mix(in oklab, var(--primary) 7%, transparent),
+    transparent 60%
+  );
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
