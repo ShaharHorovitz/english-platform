@@ -123,7 +123,16 @@
    Base
 --------------------------------------------------------------------------- */
 body {
-  background: var(--background);
+  /* Subtle teal glow from the top — on-brand visual interest so empty areas
+     never read as flat. Uses the primary token, so it flips with light/dark. */
+  background-color: var(--background);
+  background-image: radial-gradient(
+    72rem 48rem at 50% -16%,
+    color-mix(in oklab, var(--primary) 7%, transparent),
+    transparent 60%
+  );
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -146,3 +155,22 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Overlay menu / sheet motion (used by dropdown-menu + sheet). */
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.97);
+  }
+}
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+}
+
