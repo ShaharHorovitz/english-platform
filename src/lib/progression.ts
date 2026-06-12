@@ -15,6 +15,11 @@ import type { TaskTypeKey } from "@/lib/content-schemas";
  * progress is written by the task pages; this module only reads the status.
  */
 
+/** Graded tasks (practice/reading/in-context) need this score to complete. */
+export const PASS_THRESHOLD = 70;
+
+export const isPassing = (score: number) => score >= PASS_THRESHOLD;
+
 export type ItemState = "locked" | "available" | "in_progress" | "completed";
 
 export interface ProgressionTaskInput {
