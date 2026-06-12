@@ -6,6 +6,7 @@ import { GraduationCap, Mail, Lock, Eye, EyeOff, AlertCircle } from "lucide-reac
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 /**
@@ -25,12 +26,7 @@ export function LoginCardSample({
   const [showPassword, setShowPassword] = React.useState(false);
 
   return (
-    <div
-      className={cn(
-        "w-full max-w-sm rounded-2xl border border-border bg-card p-7 text-card-foreground shadow-soft-lg",
-        className,
-      )}
-    >
+    <Card className={cn("w-full max-w-sm p-7 shadow-soft-lg", className)}>
       {/* Brand */}
       <div className="mb-6 flex items-center gap-2.5">
         <span className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-soft-sm">
@@ -123,6 +119,6 @@ export function LoginCardSample({
           Redeem it
         </Link>
       </p>
-    </div>
+    </Card>
   );
 }

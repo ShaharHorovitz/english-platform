@@ -61,7 +61,7 @@ export default function DesignPreviewPage() {
               Design language
             </h1>
             <p className="mt-1 text-sm text-muted-foreground">
-              Indigo · emerald progress · amber streaks · Plus Jakarta Sans
+              Tidewater · teal · sage progress · gold streaks · Plus Jakarta Sans
             </p>
           </div>
           <Button
@@ -145,11 +145,16 @@ export default function DesignPreviewPage() {
           </div>
         </Section>
 
-        {/* Login card sample */}
-        <Section title="Sample · Sign-in card">
-          <div className="grid place-items-center gap-8 rounded-2xl border border-border bg-muted/40 p-8 sm:grid-cols-2">
-            <LoginCardSample />
-            <LoginCardSample error="Incorrect email or password." />
+        {/* Login card sample — light + dark side by side (independent of the
+            page toggle, so both are always visible). */}
+        <Section title="Sample · Sign-in card · light + dark">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid place-items-center rounded-2xl border border-border bg-[#f6f6f3] p-8">
+              <LoginCardSample />
+            </div>
+            <div className="dark grid place-items-center rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#11201e] p-8">
+              <LoginCardSample error="Incorrect email or password." />
+            </div>
           </div>
         </Section>
       </div>
