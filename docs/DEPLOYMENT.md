@@ -19,6 +19,10 @@ postgresql://postgres.<ref>:<password>@aws-1-<region>.pooler.supabase.com:6543/p
 - Our DB client (`src/db/index.ts`) already sets `prepare: false`, which is **required**
   for the transaction pooler (it doesn't support prepared statements). So no code change
   is needed — just set the right `DATABASE_URL` value in Vercel.
+- `src/db/index.ts` caps the pool (`max: 5`) and caches the client on `globalThis` in dev
+  (so HMR doesn't exhaust the pooler's client limit). For serverless on the **transaction
+  pooler**, consider lowering to `max: 1` per instance — the pooler multiplexes, so each
+  function only needs one connection.
 - Set `DATABASE_URL` (transaction pooler URI) in **Vercel → Project → Settings →
   Environment Variables** for Production (and Preview).
 - Keep using the **Session pooler** locally and for `drizzle-kit migrate` (DDL is more
