@@ -15,7 +15,6 @@ import {
   Sheet,
   SheetTrigger,
   SheetContent,
-  SheetClose,
   SheetTitle,
 } from "@/components/ui/sheet";
 import { useIsMobile } from "@/hooks/use-is-mobile";
@@ -60,17 +59,14 @@ export function ProfileMenu({ name, email }: { name: string; email: string }) {
             Settings
             <span className="ms-auto text-xs">Soon</span>
           </button>
-          <form action={signOutAction}>
-            <SheetClose asChild>
-              <button
-                type="submit"
-                className="flex h-12 w-full items-center gap-3 rounded-[var(--radius-input)] px-3 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-              >
-                <LogOut className="size-5" />
-                Sign out
-              </button>
-            </SheetClose>
-          </form>
+          <button
+            type="button"
+            onClick={() => void signOutAction()}
+            className="flex h-12 w-full items-center gap-3 rounded-[var(--radius-input)] px-3 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+          >
+            <LogOut className="size-5" />
+            Sign out
+          </button>
         </SheetContent>
       </Sheet>
     );
@@ -94,14 +90,15 @@ export function ProfileMenu({ name, email }: { name: string; email: string }) {
           </span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <form action={signOutAction}>
-          <DropdownMenuItem asChild>
-            <button type="submit" className="w-full text-start">
-              <LogOut />
-              Sign out
-            </button>
-          </DropdownMenuItem>
-        </form>
+        <DropdownMenuItem
+          onSelect={(event) => {
+            event.preventDefault();
+            void signOutAction();
+          }}
+        >
+          <LogOut />
+          Sign out
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
