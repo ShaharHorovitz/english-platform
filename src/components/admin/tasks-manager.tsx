@@ -116,7 +116,7 @@ export function TasksManager({
               }
             />
           ) : (
-            <Card key={t.id} className="flex items-center gap-3 p-4 shadow-soft-sm">
+            <Card key={t.id} className="flex items-center gap-3 p-4 shadow-soft">
               <div className="flex size-9 shrink-0 items-center justify-center rounded-[var(--radius-button)] bg-accent text-sm font-bold text-accent-foreground">
                 {t.displayOrder}
               </div>
@@ -243,7 +243,7 @@ function TaskForm({
             id="t-type"
             value={type}
             onChange={(e) => setType(e.target.value as TaskTypeKey)}
-            className="mt-1 h-11 w-full rounded-[var(--radius-input)] border border-input bg-card px-3 text-base text-foreground shadow-soft-sm outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring"
+            className="mt-1 h-11 w-full rounded-[var(--radius-input)] border border-input bg-card px-3 text-base text-foreground shadow-soft outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring"
           >
             {TYPE_ORDER.map((k) => (
               <option key={k} value={k}>
@@ -270,7 +270,7 @@ function TaskForm({
           <button
             type="button"
             onClick={() => setContentJson(pretty(TEMPLATES[type]))}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline"
+            className="inline-flex items-center gap-2 text-xs font-semibold text-primary hover:underline"
           >
             <FileJson className="size-3.5" />
             Insert {taskTypeMeta[type].label} template
@@ -282,11 +282,11 @@ function TaskForm({
           onChange={(e) => setContentJson(e.target.value)}
           spellCheck={false}
           rows={12}
-          className="mt-1 w-full rounded-[var(--radius-input)] border border-input bg-card p-3 font-mono text-sm text-foreground shadow-soft-sm outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring"
+          className="mt-1 w-full rounded-[var(--radius-input)] border border-input bg-card p-3 font-mono text-sm text-foreground shadow-soft outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring"
         />
         <p
           className={cn(
-            "mt-1.5 text-xs font-medium",
+            "mt-2 text-xs font-medium",
             validation.ok ? "text-success" : "text-destructive",
           )}
         >

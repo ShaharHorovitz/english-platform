@@ -49,7 +49,7 @@ export function InvitesManager({
     <div className="flex flex-col gap-6">
       <FormError message={error} />
 
-      <Card className="flex flex-col gap-3 p-5">
+      <Card className="flex flex-col gap-3 p-6">
         <p className="font-semibold">Generate an invite code</p>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
           <div className="flex-1">
@@ -58,7 +58,7 @@ export function InvitesManager({
               id="i-grade"
               value={gradeId}
               onChange={(e) => setGradeId(e.target.value)}
-              className="mt-1 h-11 w-full rounded-[var(--radius-input)] border border-input bg-card px-3 text-base text-foreground shadow-soft-sm outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring"
+              className="mt-1 h-11 w-full rounded-[var(--radius-input)] border border-input bg-card px-3 text-base text-foreground shadow-soft outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring"
             >
               {grades.map((g) => (
                 <option key={g.id} value={g.id}>
@@ -93,8 +93,8 @@ export function InvitesManager({
           <p className="text-sm text-muted-foreground">No invite codes yet.</p>
         ) : (
           codes.map((c) => (
-            <Card key={c.id} className="flex items-center gap-3 p-4 shadow-soft-sm">
-              <code className="rounded-[var(--radius-input)] bg-muted px-2.5 py-1 font-mono font-bold tracking-wider">
+            <Card key={c.id} className="flex items-center gap-3 p-4 shadow-soft">
+              <code className="rounded-[var(--radius-input)] bg-muted px-3 py-1 font-mono font-bold tracking-wider">
                 {c.code}
               </code>
               <button
@@ -121,7 +121,7 @@ export function InvitesManager({
               </div>
               <span
                 className={cn(
-                  "rounded-full px-2.5 py-0.5 text-xs font-semibold",
+                  "rounded-full px-3 py-1 text-xs font-semibold",
                   c.used
                     ? "bg-muted text-muted-foreground"
                     : "bg-success/15 text-success",

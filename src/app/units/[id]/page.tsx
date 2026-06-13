@@ -44,7 +44,7 @@ export default async function UnitPage({
             </Link>{" "}
             / {node.title}
           </p>
-          <h1 className="text-3xl font-extrabold tracking-tight">
+          <h1 className="text-3xl font-display font-semibold tracking-tight">
             {node.title}
           </h1>
           {node.description ? (

@@ -1,10 +1,23 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Noto_Sans_Hebrew, Geist_Mono } from "next/font/google";
+import {
+  Plus_Jakarta_Sans,
+  Noto_Sans_Hebrew,
+  Geist_Mono,
+  Fraunces,
+} from "next/font/google";
 import "./globals.css";
 
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
   subsets: ["latin"],
+  display: "swap",
+});
+
+// Display serif for H1/H2 only (Phase A typography). Optical sizing on.
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  axes: ["opsz"],
   display: "swap",
 });
 
@@ -36,7 +49,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${plusJakarta.variable} ${notoHebrew.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${plusJakarta.variable} ${fraunces.variable} ${notoHebrew.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

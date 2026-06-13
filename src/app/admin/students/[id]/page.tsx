@@ -41,7 +41,7 @@ function Stat({
   sub?: string;
 }) {
   return (
-    <Card className="p-5 shadow-soft-sm">
+    <Card className="p-6 shadow-soft">
       <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
         {label}
       </p>
@@ -99,7 +99,7 @@ export default async function StudentDetailPage({
             </Link>{" "}
             / {student.fullName}
           </p>
-          <h1 className="mt-1 text-3xl font-extrabold tracking-tight">
+          <h1 className="mt-1 text-3xl font-display font-semibold tracking-tight">
             {student.fullName}
           </h1>
           <p className="text-sm text-muted-foreground">
@@ -138,7 +138,7 @@ export default async function StudentDetailPage({
         {/* Per-unit breakdown */}
         <section className="flex flex-col gap-4">
           <SectionTitle>Per-unit breakdown</SectionTitle>
-          <Card className="p-2 shadow-soft-sm sm:p-4">
+          <Card className="p-2 shadow-soft sm:p-4">
             {a.units.length === 0 ? (
               <p className="p-4 text-sm text-muted-foreground">No attempts yet.</p>
             ) : (
@@ -156,13 +156,13 @@ export default async function StudentDetailPage({
                   <tbody>
                     {a.units.map((u) => (
                       <tr key={u.id} className="border-b border-border/50 last:border-0">
-                        <td className="px-3 py-2.5 font-medium">{u.title}</td>
-                        <td className="px-3 py-2.5">{u.attempts}</td>
-                        <td className="px-3 py-2.5">{u.passRate}%</td>
-                        <td className="px-3 py-2.5">
+                        <td className="px-3 py-3 font-medium">{u.title}</td>
+                        <td className="px-3 py-3">{u.attempts}</td>
+                        <td className="px-3 py-3">{u.passRate}%</td>
+                        <td className="px-3 py-3">
                           {u.avgScore != null ? `${u.avgScore}%` : "—"}
                         </td>
-                        <td className="px-3 py-2.5">{fmtTime(u.avgTimeSeconds)}</td>
+                        <td className="px-3 py-3">{fmtTime(u.avgTimeSeconds)}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -185,7 +185,7 @@ export default async function StudentDetailPage({
                 {a.struggleTasks.map((t) => (
                   <div
                     key={t.id}
-                    className="flex items-center justify-between gap-3 rounded-[var(--radius-input)] border border-border bg-card p-3 shadow-soft-sm"
+                    className="flex items-center justify-between gap-3 rounded-[var(--radius-input)] border border-border bg-card p-3 shadow-soft"
                   >
                     <div className="min-w-0">
                       <p className="truncate font-medium">{t.title}</p>
@@ -194,7 +194,7 @@ export default async function StudentDetailPage({
                         {t.attempts} attempts
                       </p>
                     </div>
-                    <span className="shrink-0 rounded-full bg-destructive/15 px-2.5 py-0.5 text-xs font-semibold text-destructive">
+                    <span className="shrink-0 rounded-full bg-destructive/15 px-3 py-1 text-xs font-semibold text-destructive">
                       {t.fails} fail{t.fails === 1 ? "" : "s"}
                     </span>
                   </div>
@@ -215,7 +215,7 @@ export default async function StudentDetailPage({
                   return (
                     <div
                       key={i}
-                      className="flex items-center justify-between gap-3 rounded-[var(--radius-input)] border border-border bg-card p-3 shadow-soft-sm"
+                      className="flex items-center justify-between gap-3 rounded-[var(--radius-input)] border border-border bg-card p-3 shadow-soft"
                     >
                       <div className="min-w-0">
                         <p className="truncate font-medium">
@@ -235,7 +235,7 @@ export default async function StudentDetailPage({
                       </div>
                       <span
                         className={cn(
-                          "shrink-0 rounded-full px-2.5 py-0.5 text-xs font-semibold",
+                          "shrink-0 rounded-full px-3 py-1 text-xs font-semibold",
                           ratio < 50
                             ? "bg-destructive/15 text-destructive"
                             : ratio < 75

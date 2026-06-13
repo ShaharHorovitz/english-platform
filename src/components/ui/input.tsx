@@ -14,7 +14,7 @@ export const Input = React.forwardRef<
       ref={ref}
       type={type}
       className={cn(
-        "flex h-11 w-full rounded-[var(--radius-input)] border border-input bg-card px-3.5 py-2 text-base text-foreground shadow-soft-sm transition-colors",
+        "flex h-11 w-full rounded-[var(--radius-input)] border border-input bg-card px-4 py-2 text-base text-foreground shadow-soft transition-colors",
         "placeholder:text-muted-foreground",
         "focus-visible:border-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         "disabled:cursor-not-allowed disabled:opacity-50",

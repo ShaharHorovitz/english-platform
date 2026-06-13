@@ -21,7 +21,7 @@ export const SheetContent = React.forwardRef<
       <DialogPrimitive.Content
         ref={ref}
         className={cn(
-          "fixed inset-x-0 bottom-0 z-50 rounded-t-[var(--radius-card)] border-t border-border bg-popover p-4 pb-[max(1rem,env(safe-area-inset-bottom))] text-popover-foreground shadow-soft-lg",
+          "fixed inset-x-0 bottom-0 z-50 rounded-t-[var(--radius-card)] border-t border-border bg-popover p-4 pb-[max(1rem,env(safe-area-inset-bottom))] text-popover-foreground shadow-lifted",
           "data-[state=open]:animate-[sheet-up_220ms_var(--ease-emphasized)]",
           className,
         )}

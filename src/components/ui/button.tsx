@@ -22,15 +22,15 @@ export const buttonVariants = cva(
           "border border-input bg-card text-foreground hover:bg-accent hover:text-accent-foreground",
         ghost: "text-foreground hover:bg-accent hover:text-accent-foreground",
         success:
-          "bg-success text-success-foreground shadow-soft-sm hover:brightness-[1.05]",
+          "bg-success text-success-foreground shadow-soft hover:brightness-[1.05]",
         destructive:
           "bg-destructive text-destructive-foreground hover:brightness-[1.05]",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
-        sm: "h-9 px-3.5 text-sm",
-        default: "h-11 px-5 text-base",
-        lg: "h-12 px-7 text-lg",
+        sm: "h-9 px-4 text-sm",
+        default: "h-11 px-6 text-base",
+        lg: "h-12 px-8 text-lg",
         icon: "h-11 w-11",
       },
     },

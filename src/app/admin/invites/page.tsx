@@ -36,7 +36,7 @@ export default async function AdminInvitesPage() {
             </Link>{" "}
             / Invite codes
           </p>
-          <h1 className="mt-1 text-3xl font-extrabold tracking-tight">
+          <h1 className="mt-1 text-3xl font-display font-semibold tracking-tight">
             Invite codes
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">

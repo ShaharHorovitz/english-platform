@@ -14,7 +14,7 @@ export function UnitCard({ unit, index }: { unit: UnitNode; index: number }) {
   const inner = (
     <Card
       className={cn(
-        "flex h-full flex-col gap-4 p-5 transition-colors",
+        "flex h-full flex-col gap-4 p-6 transition-colors",
         locked ? "opacity-60" : "group-hover:bg-accent",
       )}
     >
@@ -23,7 +23,7 @@ export function UnitCard({ unit, index }: { unit: UnitNode; index: number }) {
           <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
             Unit {index + 1}
           </p>
-          <h3 className="mt-0.5 font-bold tracking-tight">{unit.title}</h3>
+          <h3 className="mt-1 font-bold tracking-tight">{unit.title}</h3>
         </div>
         <span
           className={cn(
@@ -51,7 +51,7 @@ export function UnitCard({ unit, index }: { unit: UnitNode; index: number }) {
         </p>
       ) : null}
 
-      <div className="mt-auto flex flex-col gap-1.5">
+      <div className="mt-auto flex flex-col gap-2">
         <div className="flex justify-between text-xs text-muted-foreground">
           <span>
             {unit.completedCount}/{unit.totalCount} tasks

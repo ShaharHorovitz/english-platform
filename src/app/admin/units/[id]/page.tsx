@@ -49,7 +49,7 @@ export default async function AdminUnitPage({
             </Link>{" "}
             / {unit.title}
           </p>
-          <h1 className="mt-1 text-3xl font-extrabold tracking-tight">
+          <h1 className="mt-1 text-3xl font-display font-semibold tracking-tight">
             {unit.title}
           </h1>
         </div>

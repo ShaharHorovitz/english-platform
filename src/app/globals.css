@@ -100,6 +100,7 @@
 
   --font-sans: var(--font-plus-jakarta), var(--font-noto-hebrew),
     ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
   --font-hebrew: var(--font-noto-hebrew), var(--font-plus-jakarta), sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
@@ -111,12 +112,24 @@
   --radius-md: 0.75rem;
   --radius-lg: 1rem;
 
-  --shadow-soft-sm: 0 1px 2px 0 rgb(30 42 40 / 0.06);
-  --shadow-soft-md: 0 4px 12px -2px rgb(30 42 40 / 0.1);
-  --shadow-soft-lg: 0 14px 34px -10px rgb(30 42 40 / 0.16);
+  /* Three layered shadows (tight + diffuse). soft → medium → lifted. */
+  --shadow-soft: 0 1px 2px -1px rgb(30 42 40 / 0.06),
+    0 2px 8px -3px rgb(30 42 40 / 0.07);
+  --shadow-medium: 0 2px 4px -2px rgb(30 42 40 / 0.07),
+    0 8px 24px -6px rgb(30 42 40 / 0.12);
+  --shadow-lifted: 0 4px 8px -3px rgb(30 42 40 / 0.09),
+    0 18px 44px -10px rgb(30 42 40 / 0.18);
 
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* Motion tokens (plain vars so JS/Framer + arbitrary utilities can read them). */
+:root {
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
 }
 
 /* ---------------------------------------------------------------------------

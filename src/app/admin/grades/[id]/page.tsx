@@ -43,7 +43,7 @@ export default async function AdminGradePage({
             </Link>{" "}
             / {grade.name}
           </p>
-          <h1 className="mt-1 text-3xl font-extrabold tracking-tight">
+          <h1 className="mt-1 text-3xl font-display font-semibold tracking-tight">
             {grade.name}
           </h1>
         </div>

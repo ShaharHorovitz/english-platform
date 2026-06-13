@@ -141,7 +141,7 @@ export function VocabPractice({
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-col gap-4">
       {exercises.map((ex, ei) => (
-        <Card key={ei} className="p-5">
+        <Card key={ei} className="p-6">
           {ex.type === "matching" ? (
             <div className="flex flex-col gap-3">
               <p className="text-sm font-semibold text-muted-foreground">
@@ -158,7 +158,7 @@ export function VocabPractice({
                     <select
                       value={(answers[key] as string) ?? ""}
                       onChange={(e) => set(key, e.target.value)}
-                      className="h-11 flex-1 rounded-[var(--radius-input)] border border-input bg-card px-3 text-base text-foreground shadow-soft-sm outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring"
+                      className="h-11 flex-1 rounded-[var(--radius-input)] border border-input bg-card px-3 text-base text-foreground shadow-soft outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring"
                     >
                       <option value="" disabled>
                         Choose…
@@ -208,7 +208,7 @@ export function VocabPractice({
                   value={(answers[`${ei}`] as string) ?? ""}
                   onChange={(e) => set(`${ei}`, e.target.value)}
                   aria-label="Fill in the blank"
-                  className="mx-1 inline-block w-40 rounded-[var(--radius-input)] border border-input bg-card px-2 py-1 text-base text-foreground shadow-soft-sm outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring"
+                  className="mx-1 inline-block w-40 rounded-[var(--radius-input)] border border-input bg-card px-2 py-1 text-base text-foreground shadow-soft outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring"
                 />
                 {ex.sentence.split(/_+/)[1] ?? ""}
               </p>

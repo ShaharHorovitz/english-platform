@@ -52,12 +52,12 @@ export default function DesignPreviewPage() {
   }, [dark]);
 
   return (
-    <main className="min-h-dvh bg-background px-5 py-10 sm:px-8">
+    <main className="min-h-dvh bg-background px-6 py-12 sm:px-8">
       <div className="mx-auto flex max-w-5xl flex-col gap-12">
         {/* Header */}
         <header className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight text-foreground">
+            <h1 className="text-3xl font-display font-semibold tracking-tight text-foreground">
               Design language
             </h1>
             <p className="mt-1 text-sm text-muted-foreground">
@@ -80,7 +80,7 @@ export default function DesignPreviewPage() {
             {swatches.map((s) => (
               <div
                 key={s.name}
-                className={`flex h-20 flex-col justify-end rounded-xl p-3 text-sm font-medium shadow-soft-sm ${s.className}`}
+                className={`flex h-20 flex-col justify-end rounded-xl p-3 text-sm font-medium shadow-soft ${s.className}`}
               >
                 {s.name}
               </div>
@@ -92,7 +92,7 @@ export default function DesignPreviewPage() {
         <Section title="Typography">
           <div className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-6 text-card-foreground">
             {typeScale.map((t) => (
-              <div key={t.label} className="flex flex-col gap-0.5">
+              <div key={t.label} className="flex flex-col gap-1">
                 <span className="text-xs text-muted-foreground">{t.label}</span>
                 <span className={t.className}>The quick brown fox · מילה</span>
               </div>
@@ -131,11 +131,11 @@ export default function DesignPreviewPage() {
         {/* Inputs */}
         <Section title="Inputs">
           <div className="grid gap-4 rounded-2xl border border-border bg-card p-6 sm:grid-cols-2">
-            <div className="flex flex-col gap-1.5">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="p-name">Name</Label>
               <Input id="p-name" placeholder="Ada Lovelace" />
             </div>
-            <div className="flex flex-col gap-1.5">
+            <div className="flex flex-col gap-2">
               <Label htmlFor="p-err">With error</Label>
               <Input id="p-err" aria-invalid defaultValue="not-an-email" />
               <span className="text-xs text-destructive">

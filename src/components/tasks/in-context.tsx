@@ -85,8 +85,8 @@ export function InContext({
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-col gap-4">
       {items.map((item, i) => (
-        <Card key={i} className="p-5">
-          <span className="inline-flex rounded-full bg-accent px-2.5 py-0.5 text-sm font-semibold text-accent-foreground">
+        <Card key={i} className="p-6">
+          <span className="inline-flex rounded-full bg-accent px-3 py-1 text-sm font-semibold text-accent-foreground">
             {item.word}
           </span>
           <p className="mt-2 text-sm text-muted-foreground">{item.prompt}</p>
@@ -95,7 +95,7 @@ export function InContext({
             onChange={(e) => setAns(i, e.target.value)}
             rows={2}
             placeholder="Write your sentence…"
-            className="mt-3 w-full rounded-[var(--radius-input)] border border-input bg-card p-3 text-base text-foreground shadow-soft-sm outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring"
+            className="mt-3 w-full rounded-[var(--radius-input)] border border-input bg-card p-3 text-base text-foreground shadow-soft outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring"
           />
         </Card>
       ))}

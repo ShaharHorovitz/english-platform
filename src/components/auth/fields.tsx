@@ -35,7 +35,7 @@ export const PasswordField = React.forwardRef<
       <Input
         ref={ref}
         type={show ? "text" : "password"}
-        className={cn("px-10", className)}
+        className={cn("px-8", className)}
         {...props}
       />
       <button

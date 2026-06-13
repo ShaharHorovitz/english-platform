@@ -45,7 +45,7 @@ export function ActivityHeatmap({
           </div>
         ))}
       </div>
-      <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+      <div className="flex items-center gap-2 text-xs text-muted-foreground">
         <span>Less</span>
         {[0, 1, 2, 3, 4].map((l) => (
           <span

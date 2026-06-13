@@ -36,12 +36,12 @@ export default async function GradePage({
             </Link>{" "}
             / {grade.name}
           </p>
-          <h1 className="text-3xl font-extrabold tracking-tight">
+          <h1 className="text-3xl font-display font-semibold tracking-tight">
             {grade.name}
           </h1>
           <div className="mt-2 max-w-md">
             <ProgressBar value={progression.overall.percent} />
-            <p className="mt-1.5 text-xs text-muted-foreground">
+            <p className="mt-2 text-xs text-muted-foreground">
               {progression.overall.completed} of {progression.overall.total}{" "}
               tasks done
             </p>

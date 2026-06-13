@@ -66,7 +66,7 @@ export function RedeemForm() {
         noValidate
       >
         <FormError message={serverError} />
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-2">
           <Label htmlFor="code">Invite code</Label>
           <InputWithIcon
             id="code"
@@ -96,14 +96,14 @@ export function RedeemForm() {
       className="flex flex-col gap-4"
       noValidate
     >
-      <div className="flex items-center gap-2 rounded-[var(--radius-input)] bg-accent px-3.5 py-2.5 text-sm font-medium text-accent-foreground">
+      <div className="flex items-center gap-2 rounded-[var(--radius-input)] bg-accent px-4 py-3 text-sm font-medium text-accent-foreground">
         <GraduationCap className="size-4 shrink-0" />
         You&rsquo;re joining <span className="font-semibold">{gradeName}</span>
       </div>
 
       <FormError message={serverError} />
 
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-2">
         <Label htmlFor="fullName">Your name</Label>
         <InputWithIcon
           id="fullName"
@@ -120,7 +120,7 @@ export function RedeemForm() {
         ) : null}
       </div>
 
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-2">
         <Label htmlFor="email">Email</Label>
         <InputWithIcon
           id="email"
@@ -138,7 +138,7 @@ export function RedeemForm() {
         ) : null}
       </div>
 
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-2">
         <Label htmlFor="password">Choose a password</Label>
         <PasswordField
           id="password"

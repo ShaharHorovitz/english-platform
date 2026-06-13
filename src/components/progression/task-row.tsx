@@ -27,7 +27,7 @@ export function TaskRow({ task }: { task: TaskNode }) {
   const row = (
     <div
       className={cn(
-        "flex items-center gap-4 rounded-[var(--radius-card)] border border-border bg-card p-4 shadow-soft-sm transition-colors",
+        "flex items-center gap-4 rounded-[var(--radius-card)] border border-border bg-card p-4 shadow-soft transition-colors",
         locked ? "opacity-60" : "group-hover:bg-accent",
       )}
     >

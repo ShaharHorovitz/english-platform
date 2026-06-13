@@ -91,7 +91,7 @@ export function VocabStudy({
 
   const card = cards[index];
   return (
-    <div className="mx-auto flex w-full max-w-xl flex-col gap-5">
+    <div className="mx-auto flex w-full max-w-xl flex-col gap-6">
       <div className="flex items-center justify-between text-sm text-muted-foreground">
         <span>
           Card {index + 1} of {cards.length}
@@ -115,7 +115,7 @@ export function VocabStudy({
             flipped && "[transform:rotateY(180deg)]",
           )}
         >
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-[var(--radius-card)] border border-border bg-card shadow-soft-md [backface-visibility:hidden]">
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-[var(--radius-card)] border border-border bg-card shadow-medium [backface-visibility:hidden]">
             <span className="text-4xl font-extrabold tracking-tight">
               {card.word}
             </span>

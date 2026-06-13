@@ -26,10 +26,10 @@ export function LoginCardSample({
   const [showPassword, setShowPassword] = React.useState(false);
 
   return (
-    <Card className={cn("w-full max-w-sm p-7 shadow-soft-lg", className)}>
+    <Card className={cn("w-full max-w-sm p-8 shadow-lifted", className)}>
       {/* Brand */}
-      <div className="mb-6 flex items-center gap-2.5">
-        <span className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-soft-sm">
+      <div className="mb-6 flex items-center gap-3">
+        <span className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-soft">
           <GraduationCap className="size-5" />
         </span>
         <span className="text-lg font-extrabold tracking-tight">
@@ -50,15 +50,15 @@ export function LoginCardSample({
         {error ? (
           <div
             role="alert"
-            className="flex items-start gap-2 rounded-xl border border-destructive/30 bg-destructive/10 px-3.5 py-2.5 text-sm text-destructive"
+            className="flex items-start gap-2 rounded-xl border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive"
           >
-            <AlertCircle className="mt-0.5 size-4 shrink-0" />
+            <AlertCircle className="mt-1 size-4 shrink-0" />
             <span>{error}</span>
           </div>
         ) : null}
 
         {/* Email */}
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-2">
           <Label htmlFor="email">Email</Label>
           <div className="relative">
             <Mail
@@ -76,7 +76,7 @@ export function LoginCardSample({
         </div>
 
         {/* Password */}
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-2">
           <Label htmlFor="password">Password</Label>
           <div className="relative">
             <Lock
@@ -88,7 +88,7 @@ export function LoginCardSample({
               type={showPassword ? "text" : "password"}
               autoComplete="current-password"
               placeholder="••••••••"
-              className="px-10"
+              className="px-8"
             />
             <button
               type="button"

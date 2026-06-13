@@ -62,7 +62,7 @@ export function VocabManager({
           {vocab.map((v) => (
             <span
               key={v.id}
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-card py-1 pe-1 ps-3 text-sm shadow-soft-sm"
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-card py-1 pe-1 ps-3 text-sm shadow-soft"
             >
               <span className="font-medium">{v.word}</span>
               <span className="text-muted-foreground" dir="rtl" lang="he">
@@ -101,7 +101,7 @@ export function VocabManager({
           rows={6}
           spellCheck={false}
           placeholder={SAMPLE}
-          className="w-full rounded-[var(--radius-input)] border border-input bg-card p-3 font-mono text-sm text-foreground shadow-soft-sm outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring"
+          className="w-full rounded-[var(--radius-input)] border border-input bg-card p-3 font-mono text-sm text-foreground shadow-soft outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring"
         />
         <div className="flex flex-wrap items-center gap-4">
           <label className="flex items-center gap-2 text-sm">

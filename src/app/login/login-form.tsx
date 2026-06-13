@@ -42,7 +42,7 @@ export function LoginForm() {
     >
       <FormError message={serverError} />
 
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-2">
         <Label htmlFor="email">Email</Label>
         <InputWithIcon
           id="email"
@@ -60,7 +60,7 @@ export function LoginForm() {
         ) : null}
       </div>
 
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-2">
         <Label htmlFor="password">Password</Label>
         <PasswordField
           id="password"

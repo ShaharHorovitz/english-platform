@@ -28,7 +28,7 @@ export default async function AdminPage() {
       <div className="flex flex-col gap-8">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight">Admin</h1>
+            <h1 className="text-3xl font-display font-semibold tracking-tight">Admin</h1>
             <p className="mt-1 text-sm text-muted-foreground">
               Manage content, invite codes, and student progress.
             </p>

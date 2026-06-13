@@ -97,7 +97,7 @@ export function Reading({
 
       <div className="flex flex-col gap-4">
         {questions.map((q, qi) => (
-          <Card key={qi} className="p-5">
+          <Card key={qi} className="p-6">
             <p className="font-semibold">
               {qi + 1}. {q.question}
             </p>

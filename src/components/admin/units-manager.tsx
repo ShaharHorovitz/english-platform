@@ -62,7 +62,7 @@ export function UnitsManager({
               }
             />
           ) : (
-            <Card key={u.id} className="flex items-center gap-3 p-4 shadow-soft-sm">
+            <Card key={u.id} className="flex items-center gap-3 p-4 shadow-soft">
               <div className="flex size-9 shrink-0 items-center justify-center rounded-[var(--radius-button)] bg-accent text-sm font-bold text-accent-foreground">
                 {u.displayOrder}
               </div>

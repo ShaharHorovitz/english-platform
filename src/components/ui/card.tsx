@@ -12,7 +12,7 @@ export function Card({
   return (
     <div
       className={cn(
-        "rounded-[var(--radius-card)] border border-border bg-card text-card-foreground shadow-soft-md",
+        "rounded-[var(--radius-card)] border border-border bg-card text-card-foreground shadow-medium",
         className,
       )}
       {...props}
@@ -24,7 +24,7 @@ export function CardHeader({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("flex flex-col gap-1.5 p-6", className)} {...props} />;
+  return <div className={cn("flex flex-col gap-2 p-6", className)} {...props} />;
 }
 
 export function CardTitle({

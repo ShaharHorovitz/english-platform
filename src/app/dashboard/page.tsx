@@ -24,15 +24,15 @@ export default async function DashboardPage() {
     return (
       <AppShell user={shellUser}>
         <div className="flex flex-col gap-8">
-          <h1 className="text-3xl font-extrabold tracking-tight">
+          <h1 className="text-3xl font-display font-semibold tracking-tight">
             <Greeting firstName={firstName} />
           </h1>
           <Link
             href="/admin"
-            className="group flex max-w-xl items-center justify-between gap-4 rounded-[var(--radius-card)] border border-border bg-card p-5 shadow-soft-sm transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="group flex max-w-xl items-center justify-between gap-4 rounded-[var(--radius-card)] border border-border bg-card p-6 shadow-soft transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <span className="flex items-center gap-3">
-              <span className="flex size-10 items-center justify-center rounded-[var(--radius-button)] bg-primary text-primary-foreground">
+              <span className="flex size-10 items-center justify-center rounded-[var(--radius-button)] bg-muted text-foreground">
                 <ShieldCheck className="size-5" />
               </span>
               <span>
@@ -54,7 +54,7 @@ export default async function DashboardPage() {
     return (
       <AppShell user={shellUser}>
         <div className="flex flex-col gap-6">
-          <h1 className="text-3xl font-extrabold tracking-tight">
+          <h1 className="text-3xl font-display font-semibold tracking-tight">
             <Greeting firstName={firstName} />
           </h1>
           <Card className="max-w-xl p-6 text-sm text-muted-foreground">
@@ -78,12 +78,12 @@ export default async function DashboardPage() {
   return (
     <AppShell user={shellUser}>
       <div className="flex flex-col gap-8">
-        <h1 className="text-3xl font-extrabold tracking-tight">
+        <h1 className="text-3xl font-display font-semibold tracking-tight">
           <Greeting firstName={firstName} />
         </h1>
 
         {/* Progress hero */}
-        <Card className="flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between">
+        <Card className="flex flex-col gap-6 p-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex-1">
             <p className="text-sm font-medium text-muted-foreground">
               {grade?.name ?? "Your grade"}
@@ -93,14 +93,14 @@ export default async function DashboardPage() {
             </p>
             <div className="mt-3 max-w-md">
               <ProgressBar value={overall.percent} />
-              <p className="mt-1.5 text-xs text-muted-foreground">
+              <p className="mt-2 text-xs text-muted-foreground">
                 {overall.completed} of {overall.total} tasks done
               </p>
             </div>
           </div>
 
           {allDone ? (
-            <span className="inline-flex items-center gap-2 rounded-[var(--radius-button)] bg-success px-4 py-2.5 text-sm font-semibold text-success-foreground">
+            <span className="inline-flex items-center gap-2 rounded-[var(--radius-button)] bg-success px-4 py-3 text-sm font-semibold text-success-foreground">
               <PartyPopper className="size-4" />
               All caught up!
             </span>

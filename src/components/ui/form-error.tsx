@@ -14,11 +14,11 @@ export function FormError({
     <div
       role="alert"
       className={cn(
-        "flex items-start gap-2 rounded-[var(--radius-input)] border border-destructive/30 bg-destructive/10 px-3.5 py-2.5 text-sm text-destructive",
+        "flex items-start gap-2 rounded-[var(--radius-input)] border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive",
         className,
       )}
     >
-      <AlertCircle className="mt-0.5 size-4 shrink-0" />
+      <AlertCircle className="mt-1 size-4 shrink-0" />
       <span>{message}</span>
     </div>
   );

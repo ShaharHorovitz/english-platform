@@ -21,7 +21,7 @@ import { useIsMobile } from "@/hooks/use-is-mobile";
 import { signOutAction } from "@/lib/actions";
 
 const triggerClasses =
-  "flex items-center rounded-full p-0.5 outline-none transition hover:opacity-90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background cursor-pointer";
+  "flex items-center rounded-full p-1 outline-none transition hover:opacity-90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background cursor-pointer";
 
 function Identity({ name, email }: { name: string; email: string }) {
   return (
