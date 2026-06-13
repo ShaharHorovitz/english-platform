@@ -4,7 +4,7 @@ import * as React from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ResultCard } from "./result-card";
-import { recordProgress } from "@/app/tasks/[id]/actions";
+import { recordProgress, submitTaskAttempt } from "@/app/tasks/[id]/actions";
 import { isPassing } from "@/lib/progression";
 import type { ReadingContent } from "@/lib/content-schemas";
 import { cn } from "@/lib/utils";
@@ -26,11 +26,14 @@ export function Reading({
   const [score, setScore] = React.useState<number | null>(null);
   const [pending, startTransition] = React.useTransition();
   const started = React.useRef(false);
+  const startRef = React.useRef(0);
 
   const ensureStarted = () => {
-    if (!started.current && !alreadyCompleted) {
+    if (!started.current) {
       started.current = true;
-      void recordProgress(taskId, { status: "in_progress", score: null });
+      startRef.current = Date.now();
+      if (!alreadyCompleted)
+        void recordProgress(taskId, { status: "in_progress", score: null });
     }
   };
 
@@ -47,13 +50,16 @@ export function Reading({
       0,
     );
     const pct = Math.round((correct / questions.length) * 100);
+    const timeSpentSeconds = Math.max(
+      1,
+      Math.round((Date.now() - startRef.current) / 1000),
+    );
     startTransition(async () => {
-      await recordProgress(
-        taskId,
-        isPassing(pct)
-          ? { status: "completed", score: pct }
-          : { status: "in_progress", score: null },
-      );
+      await submitTaskAttempt(taskId, {
+        score: pct,
+        passed: isPassing(pct),
+        timeSpentSeconds,
+      });
       setScore(pct); // show result only after the write + revalidate land
     });
   };

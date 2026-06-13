@@ -4,7 +4,7 @@ import * as React from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ResultCard } from "./result-card";
-import { recordProgress } from "@/app/tasks/[id]/actions";
+import { recordProgress, submitTaskAttempt } from "@/app/tasks/[id]/actions";
 import { isPassing } from "@/lib/progression";
 import type { VocabPracticeContent } from "@/lib/content-schemas";
 import { cn } from "@/lib/utils";
@@ -29,11 +29,14 @@ export function VocabPractice({
   const [score, setScore] = React.useState<number | null>(null);
   const [pending, startTransition] = React.useTransition();
   const started = React.useRef(false);
+  const startRef = React.useRef(0);
 
   const ensureStarted = () => {
-    if (!started.current && !alreadyCompleted) {
+    if (!started.current) {
       started.current = true;
-      void recordProgress(taskId, { status: "in_progress", score: null });
+      startRef.current = Date.now();
+      if (!alreadyCompleted)
+        void recordProgress(taskId, { status: "in_progress", score: null });
     }
   };
   const set = (key: string, value: string | number) => {
@@ -75,13 +78,44 @@ export function VocabPractice({
   const submit = () => {
     const correct = items.reduce((n, it) => n + (it.correct(answers) ? 1 : 0), 0);
     const pct = Math.round((correct / items.length) * 100);
+
+    // Per-word results for vocab_mastery.
+    const wordResults: { word: string; correct: boolean }[] = [];
+    exercises.forEach((ex, ei) => {
+      if (ex.type === "matching") {
+        ex.pairs.forEach((p, pi) =>
+          wordResults.push({
+            word: p.left,
+            correct: answers[`${ei}:${pi}`] === p.right,
+          }),
+        );
+      } else if (ex.type === "multiple_choice") {
+        wordResults.push({
+          word: ex.options[ex.answer],
+          correct: answers[`${ei}`] === ex.answer,
+        });
+      } else {
+        wordResults.push({
+          word: ex.blank_answer,
+          correct:
+            String(answers[`${ei}`] ?? "")
+              .trim()
+              .toLowerCase() === ex.blank_answer.toLowerCase(),
+        });
+      }
+    });
+
+    const timeSpentSeconds = Math.max(
+      1,
+      Math.round((Date.now() - startRef.current) / 1000),
+    );
     startTransition(async () => {
-      await recordProgress(
-        taskId,
-        isPassing(pct)
-          ? { status: "completed", score: pct }
-          : { status: "in_progress", score: null },
-      );
+      await submitTaskAttempt(taskId, {
+        score: pct,
+        passed: isPassing(pct),
+        timeSpentSeconds,
+        wordResults,
+      });
       setScore(pct); // show result only after the write + revalidate land
     });
   };

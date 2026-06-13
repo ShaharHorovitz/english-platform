@@ -6,7 +6,7 @@ import { Check, X, PartyPopper, ArrowRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { ProgressBar } from "@/components/progression/progress-bar";
-import { recordProgress } from "@/app/tasks/[id]/actions";
+import { recordProgress, submitTaskAttempt } from "@/app/tasks/[id]/actions";
 import type { VocabStudyContent } from "@/lib/content-schemas";
 import { cn } from "@/lib/utils";
 
@@ -29,22 +29,36 @@ export function VocabStudy({
   const [done, setDone] = React.useState(false);
   const [saving, setSaving] = React.useState(false);
   const started = React.useRef(false);
+  const startRef = React.useRef(0);
+  const resultsRef = React.useRef<{ word: string; correct: boolean }[]>([]);
 
   const ensureStarted = () => {
-    if (!started.current && !alreadyCompleted) {
+    if (!started.current) {
       started.current = true;
-      void recordProgress(taskId, { status: "in_progress", score: null });
+      startRef.current = Date.now();
+      if (!alreadyCompleted)
+        void recordProgress(taskId, { status: "in_progress", score: null });
     }
   };
 
   const advance = async (known: boolean) => {
     ensureStarted();
     if (known) setKnew((k) => k + 1);
+    resultsRef.current.push({ word: cards[index].word, correct: known });
     if (index + 1 >= cards.length) {
-      // Await the write (which revalidates) BEFORE the done screen exposes the
-      // "Back to unit" link, so the unit page reflects the unlock immediately.
+      // Await the write (attempt + progress + mastery) BEFORE the done screen
+      // exposes "Back to unit", so the unit page reflects the unlock immediately.
       setSaving(true);
-      await recordProgress(taskId, { status: "completed", score: null });
+      const timeSpentSeconds = Math.max(
+        1,
+        Math.round((Date.now() - startRef.current) / 1000),
+      );
+      await submitTaskAttempt(taskId, {
+        score: null,
+        passed: true,
+        timeSpentSeconds,
+        wordResults: resultsRef.current,
+      });
       setSaving(false);
       setDone(true);
     } else {
