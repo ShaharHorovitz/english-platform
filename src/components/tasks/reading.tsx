@@ -27,11 +27,13 @@ export function Reading({
   const [pending, startTransition] = React.useTransition();
   const started = React.useRef(false);
   const startRef = React.useRef(0);
+  React.useEffect(() => {
+    startRef.current = Date.now();
+  }, []);
 
   const ensureStarted = () => {
     if (!started.current) {
       started.current = true;
-      startRef.current = Date.now();
       if (!alreadyCompleted)
         void recordProgress(taskId, { status: "in_progress", score: null });
     }

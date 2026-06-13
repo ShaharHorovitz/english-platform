@@ -31,11 +31,13 @@ export function VocabStudy({
   const started = React.useRef(false);
   const startRef = React.useRef(0);
   const resultsRef = React.useRef<{ word: string; correct: boolean }[]>([]);
+  React.useEffect(() => {
+    startRef.current = Date.now();
+  }, []);
 
   const ensureStarted = () => {
     if (!started.current) {
       started.current = true;
-      startRef.current = Date.now();
       if (!alreadyCompleted)
         void recordProgress(taskId, { status: "in_progress", score: null });
     }

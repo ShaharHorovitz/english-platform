@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { asc, eq, sql } from "drizzle-orm";
+import { ChevronRight } from "lucide-react";
 import { requireTeacher } from "@/lib/auth";
 import { db } from "@/db";
 import { profiles, grades } from "@/db/schema";
@@ -66,26 +67,30 @@ export default async function AdminStudentsPage() {
             <p className="text-sm text-muted-foreground">No students yet.</p>
           ) : (
             students.map((s) => (
-              <Card
+              <Link
                 key={s.id}
-                className="flex flex-col gap-3 p-4 shadow-soft-sm sm:flex-row sm:items-center"
+                href={`/admin/students/${s.id}`}
+                className="group rounded-[var(--radius-card)] outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
-                <div className="min-w-0 flex-1">
-                  <p className="font-semibold">{s.fullName}</p>
-                  <p className="truncate text-xs text-muted-foreground">
-                    {s.email} · {s.gradeName ?? "No grade"}
-                  </p>
-                </div>
-                <div className="w-full sm:w-64">
-                  <div className="flex justify-between text-xs text-muted-foreground">
-                    <span>
-                      {s.completed}/{s.total} tasks
-                    </span>
-                    <span>{s.percent}%</span>
+                <Card className="flex flex-col gap-3 p-4 shadow-soft-sm transition-colors group-hover:bg-accent sm:flex-row sm:items-center">
+                  <div className="min-w-0 flex-1">
+                    <p className="font-semibold">{s.fullName}</p>
+                    <p className="truncate text-xs text-muted-foreground">
+                      {s.email} · {s.gradeName ?? "No grade"}
+                    </p>
                   </div>
-                  <ProgressBar value={s.percent} className="mt-1" />
-                </div>
-              </Card>
+                  <div className="w-full sm:w-64">
+                    <div className="flex justify-between text-xs text-muted-foreground">
+                      <span>
+                        {s.completed}/{s.total} tasks
+                      </span>
+                      <span>{s.percent}%</span>
+                    </div>
+                    <ProgressBar value={s.percent} className="mt-1" />
+                  </div>
+                  <ChevronRight className="hidden size-5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 sm:block" />
+                </Card>
+              </Link>
             ))
           )}
         </div>
