@@ -2,11 +2,13 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { motion, useReducedMotion } from "motion/react";
 import { Check, X, PartyPopper, ArrowRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { ProgressBar } from "@/components/progression/progress-bar";
 import { recordProgress, submitTaskAttempt } from "@/app/tasks/[id]/actions";
+import { celebrate } from "@/lib/confetti";
 import type { VocabStudyContent } from "@/lib/content-schemas";
 import { cn } from "@/lib/utils";
 
@@ -31,9 +33,13 @@ export function VocabStudy({
   const started = React.useRef(false);
   const startRef = React.useRef(0);
   const resultsRef = React.useRef<{ word: string; correct: boolean }[]>([]);
+  const reduce = useReducedMotion();
   React.useEffect(() => {
     startRef.current = Date.now();
   }, []);
+  React.useEffect(() => {
+    if (done) celebrate({ x: 0.5, y: 0.35 });
+  }, [done]);
 
   const ensureStarted = () => {
     if (!started.current) {
@@ -72,11 +78,18 @@ export function VocabStudy({
   if (done) {
     return (
       <Card className="mx-auto flex w-full max-w-md flex-col items-center gap-4 p-8 text-center">
-        <span className="flex size-14 items-center justify-center rounded-full bg-success text-success-foreground">
+        <motion.span
+          className="flex size-14 items-center justify-center rounded-full bg-success text-success-foreground"
+          initial={reduce ? false : { scale: 0.4, opacity: 0 }}
+          animate={reduce ? undefined : { scale: [0.4, 1.18, 1], opacity: 1 }}
+          transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
+        >
           <PartyPopper className="size-7" />
-        </span>
+        </motion.span>
         <div>
-          <p className="text-2xl font-extrabold tracking-tight">All done!</p>
+          <p className="font-display text-3xl font-semibold tracking-tight">
+            All done!
+          </p>
           <p className="mt-1 text-muted-foreground">
             You reviewed {cards.length} cards and knew {knew} of them.
           </p>

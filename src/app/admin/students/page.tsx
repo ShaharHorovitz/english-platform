@@ -72,7 +72,7 @@ export default async function AdminStudentsPage() {
                 href={`/admin/students/${s.id}`}
                 className="group rounded-[var(--radius-card)] outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
-                <Card className="flex flex-col gap-3 p-4 shadow-soft transition-colors group-hover:bg-accent sm:flex-row sm:items-center">
+                <Card className="flex flex-col gap-3 p-4 shadow-soft transition-[transform,box-shadow,background-color] duration-[var(--duration-base)] ease-[var(--ease-out)] group-hover:-translate-y-0.5 group-hover:bg-accent group-hover:shadow-medium sm:flex-row sm:items-center">
                   <div className="min-w-0 flex-1">
                     <p className="font-semibold">{s.fullName}</p>
                     <p className="truncate text-xs text-muted-foreground">

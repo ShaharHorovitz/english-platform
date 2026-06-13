@@ -1,6 +1,10 @@
+"use client";
+
+import { motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
 
-/** Token-styled progress bar with the teal CTA gradient fill. */
+/** Token-styled progress bar with the teal CTA gradient fill. Animates from 0
+ * to value on mount (smooth fill, not snap); static under reduced motion. */
 export function ProgressBar({
   value,
   className,
@@ -8,6 +12,7 @@ export function ProgressBar({
   value: number;
   className?: string;
 }) {
+  const reduce = useReducedMotion();
   const clamped = Math.max(0, Math.min(100, value));
   return (
     <div
@@ -20,9 +25,11 @@ export function ProgressBar({
         className,
       )}
     >
-      <div
-        className="h-full rounded-full bg-[linear-gradient(90deg,var(--primary-from),var(--primary-to))] transition-[width] duration-500 ease-[var(--ease-emphasized)]"
-        style={{ width: `${clamped}%` }}
+      <motion.div
+        className="h-full rounded-full bg-[linear-gradient(90deg,var(--primary-from),var(--primary-to))]"
+        initial={reduce ? false : { width: 0 }}
+        animate={{ width: `${clamped}%` }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       />
     </div>
   );

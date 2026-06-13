@@ -11,6 +11,7 @@ import { Card } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
 import { ProgressBar } from "@/components/progression/progress-bar";
 import { UnitGrid } from "@/components/progression/unit-grid";
+import { CountUp } from "@/components/motion/count-up";
 
 export default async function DashboardPage() {
   const user = await requireUser();
@@ -29,7 +30,7 @@ export default async function DashboardPage() {
           </h1>
           <Link
             href="/admin"
-            className="group flex max-w-xl items-center justify-between gap-4 rounded-[var(--radius-card)] border border-border bg-card p-6 shadow-soft transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="group flex max-w-xl items-center justify-between gap-4 rounded-[var(--radius-card)] border border-border bg-card p-6 shadow-soft transition-[transform,box-shadow,background-color] duration-[var(--duration-base)] ease-[var(--ease-out)] hover:-translate-y-0.5 hover:bg-accent hover:shadow-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <span className="flex items-center gap-3">
               <span className="flex size-10 items-center justify-center rounded-[var(--radius-button)] bg-muted text-foreground">
@@ -89,7 +90,7 @@ export default async function DashboardPage() {
               {grade?.name ?? "Your grade"}
             </p>
             <p className="mt-1 text-2xl font-bold tracking-tight">
-              {overall.percent}% complete
+              <CountUp value={overall.percent} suffix="%" /> complete
             </p>
             <div className="mt-3 max-w-md">
               <ProgressBar value={overall.percent} />
@@ -120,7 +121,7 @@ export default async function DashboardPage() {
           <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
             Units
           </h2>
-          <UnitGrid units={units} />
+          <UnitGrid units={units} currentUnitId={nextTask?.unitId} />
         </section>
       </div>
     </AppShell>

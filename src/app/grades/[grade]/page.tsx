@@ -48,7 +48,10 @@ export default async function GradePage({
           </div>
         </div>
 
-        <UnitGrid units={progression.units} />
+        <UnitGrid
+          units={progression.units}
+          currentUnitId={progression.nextTask?.unitId}
+        />
       </div>
     </AppShell>
   );
