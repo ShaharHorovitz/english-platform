@@ -8,6 +8,8 @@ import {
   jsonb,
   unique,
   index,
+  boolean,
+  smallint,
 } from "drizzle-orm/pg-core";
 import type {
   VocabStudyContent,
@@ -166,6 +168,63 @@ export const inviteCodes = pgTable("invite_codes", {
 });
 
 // ---------------------------------------------------------------------------
+// Analytics (source of truth for the teacher detail view). user_progress stays
+// the lightweight summary the progression logic reads.
+// ---------------------------------------------------------------------------
+
+// One row PER ATTEMPT (not per task).
+export const taskAttempts = pgTable(
+  "task_attempts",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => profiles.id, { onDelete: "cascade" }),
+    taskId: uuid("task_id")
+      .notNull()
+      .references(() => tasks.id, { onDelete: "cascade" }),
+    attemptNumber: integer("attempt_number").notNull(),
+    startedAt: timestamp("started_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    completedAt: timestamp("completed_at", { withTimezone: true }),
+    timeSpentSeconds: integer("time_spent_seconds"),
+    score: integer("score"), // 0–100
+    passed: boolean("passed").notNull().default(false),
+    redoCount: integer("redo_count").notNull().default(0),
+  },
+  (t) => [
+    index("task_attempts_user_task_idx").on(t.userId, t.taskId),
+    index("task_attempts_user_completed_idx").on(t.userId, t.completedAt),
+  ],
+);
+
+// One row per (user × vocab_item) — per-word performance.
+export const vocabMastery = pgTable(
+  "vocab_mastery",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => profiles.id, { onDelete: "cascade" }),
+    vocabItemId: uuid("vocab_item_id")
+      .notNull()
+      .references(() => vocabItems.id, { onDelete: "cascade" }),
+    timesSeen: integer("times_seen").notNull().default(0),
+    timesCorrect: integer("times_correct").notNull().default(0),
+    timesIncorrect: integer("times_incorrect").notNull().default(0),
+    // 0 new, 1 learning, 2 reviewing, 3 familiar, 4 mastered
+    masteryLevel: smallint("mastery_level").notNull().default(0),
+    lastSeenAt: timestamp("last_seen_at", { withTimezone: true }),
+    lastCorrectAt: timestamp("last_correct_at", { withTimezone: true }),
+  },
+  (t) => [
+    unique("vocab_mastery_user_item_unique").on(t.userId, t.vocabItemId),
+    index("vocab_mastery_user_level_idx").on(t.userId, t.masteryLevel),
+  ],
+);
+
+// ---------------------------------------------------------------------------
 // Inferred types
 // ---------------------------------------------------------------------------
 
@@ -176,3 +235,5 @@ export type VocabItem = typeof vocabItems.$inferSelect;
 export type Profile = typeof profiles.$inferSelect;
 export type UserProgress = typeof userProgress.$inferSelect;
 export type InviteCode = typeof inviteCodes.$inferSelect;
+export type TaskAttempt = typeof taskAttempts.$inferSelect;
+export type VocabMastery = typeof vocabMastery.$inferSelect;
